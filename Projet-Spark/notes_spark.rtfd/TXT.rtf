@@ -1,0 +1,83 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c100000;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww14820\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl440\partightenfactor0
+
+\f0\fs32 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 from pyspark.sql import SparkSession
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs32 \cf2 \strokec2 SparkSession.builder.config(conf=SparkConf())\'a0
+\f1\fs24 \cf3 \strokec3 \
+\
+
+\f0\fs32 \cf2 \strokec2 s1 =SparkSession.builder.config("spark.some.config.option", "some-value")
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs32 \cf2 \strokec2 s1 = SparkSession.builder.config("k1", "v1").getOrCreate()
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs32 \cf2 \strokec2 s1.conf.get("k1") == s1.sparkContext.getConf().get("k1") == "v1"
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs32 \cf2 \strokec2 \
+\
+\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\fs29\fsmilli14667 \cf2 l = [('Romane', 21), ('Bix', 20), ('Juliette', 21), ('Gilles', 21)]
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 spark.createDataFrame(l).collect()
+\f1\fs24 \cf3 \strokec3 \
+\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 s1.createDataFrame(l)
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 s1.createDataFrame(l, ['name', 'age']).collect()
+\f1\fs24 \cf3 \strokec3 \
+\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 rdd=sc.parallelize(l)
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 spark.createDataFrame(rdd).collect()
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 s1.createDataFrame(rdd).collect()
+\f1\fs24 \cf3 \strokec3 \
+\
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 df=s1.createDataFrame(rdd,['name', 'age'])
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 df.select("name", "age").show()
+\f1\fs24 \cf3 \strokec3 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf3 \
+\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 from pyspark.sql import functions as F
+\f1\fs24 \cf3 \strokec3 \
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 df.select("name", F.when(df.age > 20, 1).otherwise(0)).show()
+\f1\fs24 \cf3 \strokec3 \
+\
+\pard\pardeftab720\sl340\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 \strokec2 df.select("name", "age", df.age.between(19, 25)).show()\
+\
+df.groupBy(\'93age\'94).count().show()
+\f1\fs24 \cf3 \strokec3 \
+}
